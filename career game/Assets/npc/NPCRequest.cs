@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class NPCRequest : MonoBehaviour
 {
-    public string requestedItem;
+    public string[] possibleItems;
     public GameObject exclamationMark;
 
+    private string requestedItem;
     private bool isRequesting = false;
+
     private Transform player;
     private PlayerItemHolder playerHolder;
     private NPCManager manager;
@@ -38,8 +40,14 @@ public class NPCRequest : MonoBehaviour
 
         if (active)
         {
+            ChooseRandomItem();
             Debug.Log(gameObject.name + " wants: " + requestedItem);
         }
+    }
+
+    void ChooseRandomItem()
+    {
+        requestedItem = possibleItems[Random.Range(0, possibleItems.Length)];
     }
 
     void TryGiveItem()
@@ -49,14 +57,13 @@ public class NPCRequest : MonoBehaviour
             Debug.Log("Correct item!");
 
             playerHolder.ClearItem();
-
             SetActiveRequest(false);
 
             manager.ChooseRandomNPC();
         }
         else
         {
-            Debug.Log("Wrong item");
+            Debug.Log("Wrong item. NPC wants: " + requestedItem);
         }
     }
 }
