@@ -2,53 +2,61 @@ using UnityEngine;
 
 public class NPCRequest : MonoBehaviour
 {
-    public string[] possibleItems;
+    public string requestedItem;
+    public GameObject exclamationMark;
 
-    private string requestedItem;
-    private bool requestActive = false;
-
-    private PlayerInventory playerInventory;
+    private bool isRequesting = false;
+    private Transform player;
+    private PlayerItemHolder playerHolder;
+    private NPCManager manager;
 
     void Start()
     {
-        playerInventory = GameObject
-            .FindGameObjectWithTag("Player")
-            .GetComponent<PlayerInventory>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerHolder = player.GetComponent<PlayerItemHolder>();
+        manager = FindObjectOfType<NPCManager>();
 
-        ChooseRandomItem();
+        exclamationMark.SetActive(false);
     }
 
     void Update()
     {
-        if (requestActive && Input.GetKeyDown(KeyCode.E))
+        if (!isRequesting) return;
+
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        if (distance < 3f && Input.GetKeyDown(KeyCode.E))
         {
             TryGiveItem();
         }
     }
 
-    void ChooseRandomItem()
+    public void SetActiveRequest(bool active)
     {
-        int randomIndex = Random.Range(0, possibleItems.Length);
-        requestedItem = possibleItems[randomIndex];
+        isRequesting = active;
+        exclamationMark.SetActive(active);
 
-        Debug.Log("NPC wants: " + requestedItem);
-        requestActive = true;
+        if (active)
+        {
+            Debug.Log(gameObject.name + " wants: " + requestedItem);
+        }
     }
 
     void TryGiveItem()
     {
-        if (playerInventory.HasItem(requestedItem))
+        if (playerHolder.heldItemName == requestedItem)
         {
-            playerInventory.RemoveItem(requestedItem);
+            Debug.Log("Correct item!");
 
-            Debug.Log("NPC received: " + requestedItem);
-            requestActive = false;
+            playerHolder.ClearItem();
 
-            ChooseRandomItem();
+            SetActiveRequest(false);
+
+            manager.ChooseRandomNPC();
         }
         else
         {
-            Debug.Log("You don't have the item!");
+            Debug.Log("Wrong item");
         }
     }
 }
