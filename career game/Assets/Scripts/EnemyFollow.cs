@@ -1,20 +1,24 @@
 using UnityEngine;
-using UnityEngine.AI; // Required for NavMeshAgent
+using UnityEngine.AI;
 
 public class EnemyFollow : MonoBehaviour
 {
-    public float speed = 3.5f; //
-    public float chaseDistance = 10f; // Distance to start chasing
+    public float speed = 3.5f;
+    public float chaseDistance = 10f;
+
     private Transform playerTarget;
     private NavMeshAgent navMeshAgent;
 
     void Start()
     {
-        // Find the player object by tag
-        playerTarget = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerTarget = player.transform;
+        }
 
-        // Get the NavMeshAgent component
         navMeshAgent = GetComponent<NavMeshAgent>();
+
         if (navMeshAgent != null)
         {
             navMeshAgent.speed = speed;
@@ -23,21 +27,17 @@ public class EnemyFollow : MonoBehaviour
 
     void Update()
     {
-        if (playerTarget != null && navMeshAgent != null)
-        {
-            // Calculate the distance to the player
-            float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
+        if (playerTarget == null || navMeshAgent == null) return;
 
-            if (distanceToPlayer <= chaseDistance)
-            {
-                // Set the destination to the player's position to start chasing
-                navMeshAgent.SetDestination(playerTarget.position);
-            }
-            else
-            {
-                // Stop moving if the player is out of range
-                navMeshAgent.SetDestination(transform.position);
-            }
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTarget.position);
+
+        if (distanceToPlayer <= chaseDistance)
+        {
+            navMeshAgent.SetDestination(playerTarget.position);
+        }
+        else
+        {
+            navMeshAgent.ResetPath();
         }
     }
 }
