@@ -11,7 +11,7 @@ public class PlateRecipe : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ingredient"))
+        if (other.CompareTag("Cart"))
         {
             ingredientsOnPlate.Add(other.gameObject);
             CheckRecipe();
