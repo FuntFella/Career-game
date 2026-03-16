@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerPickup : MonoBehaviour
 {
     public Camera playerCamera;
-    public float pickupRange = 3f;
+    public float pickupRange = 456f;
     public float holdDistance = 2f;
     public KeyCode pickupKey = KeyCode.E;
 

@@ -1,8 +1,8 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerItemHolder : MonoBehaviour
 {
-    public string heldItemName;
+    public string heldItemName = "";
 
     public bool HasItem()
     {
@@ -13,6 +13,18 @@ public class PlayerItemHolder : MonoBehaviour
     {
         heldItemName = itemName;
         Debug.Log("Holding: " + itemName);
+    }
+
+    public void DropItem()
+    {
+        Debug.Log("Dropped: " + heldItemName);
+        heldItemName = "";
+    }
+
+    public void SwapItem(string newItem)
+    {
+        Debug.Log("Swapped " + heldItemName + " for " + newItem);
+        heldItemName = newItem;
     }
 
     public void ClearItem()
