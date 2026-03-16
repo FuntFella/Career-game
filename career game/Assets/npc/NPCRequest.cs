@@ -1,12 +1,14 @@
 using UnityEngine;
+using TMPro;
 
 public class NPCRequest : MonoBehaviour
 {
     public string[] possibleItems;
     public GameObject exclamationMark;
+    public TextMeshPro itemText;
 
     private string requestedItem;
-    private bool isRequesting = false;
+    private bool isRequesting;
 
     private Transform player;
     private PlayerItemHolder playerHolder;
@@ -19,6 +21,7 @@ public class NPCRequest : MonoBehaviour
         manager = FindObjectOfType<NPCManager>();
 
         exclamationMark.SetActive(false);
+        itemText.text = "";
     }
 
     void Update()
@@ -36,34 +39,32 @@ public class NPCRequest : MonoBehaviour
     public void SetActiveRequest(bool active)
     {
         isRequesting = active;
+
         exclamationMark.SetActive(active);
 
         if (active)
         {
-            ChooseRandomItem();
-            Debug.Log(gameObject.name + " wants: " + requestedItem);
-        }
-    }
+            requestedItem = possibleItems[Random.Range(0, possibleItems.Length)];
 
-    void ChooseRandomItem()
-    {
-        requestedItem = possibleItems[Random.Range(0, possibleItems.Length)];
+            itemText.text = requestedItem;
+        }
+        else
+        {
+            itemText.text = "";
+        }
     }
 
     void TryGiveItem()
     {
         if (playerHolder.heldItemName == requestedItem)
         {
-            Debug.Log("Correct item!");
-
             playerHolder.ClearItem();
+
+            FindObjectOfType<LevelGoalManager>().ItemDelivered();
+
             SetActiveRequest(false);
 
             manager.ChooseRandomNPC();
-        }
-        else
-        {
-            Debug.Log("Wrong item. NPC wants: " + requestedItem);
         }
     }
 }
