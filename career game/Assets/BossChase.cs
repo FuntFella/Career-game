@@ -8,6 +8,7 @@ public class BossChase : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Boss script is running");
         agent = GetComponent<NavMeshAgent>();
     }
 
