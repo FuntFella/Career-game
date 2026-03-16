@@ -34,12 +34,13 @@ public class PlayerInteraction : MonoBehaviour
                     if (!holder.HasItem())
                     {
                         holder.PickItem(item.itemName);
-                        item.PickedUp();
                     }
                     else
                     {
-                        Debug.Log("You are already holding an item!");
+                        holder.SwapItem(item.itemName);
                     }
+
+                    item.PickedUp();
                 }
 
                 return;
