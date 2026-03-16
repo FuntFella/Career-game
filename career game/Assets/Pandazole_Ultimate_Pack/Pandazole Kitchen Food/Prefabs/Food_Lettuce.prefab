@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2691263399288273178}
   - component: {fileID: 7324794292293698571}
   - component: {fileID: 8300461803597077405}
+  - component: {fileID: 9077279150691173538}
   m_Layer: 0
   m_Name: Food_Lettuce
   m_TagString: Cart
@@ -134,3 +135,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &9077279150691173538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4492821927860754639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dada63264e9cb140b2f3db48f3b2144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resultPrefab: {fileID: 7041683020158330340, guid: a39885acf60cabb49ae5f1ed9464e7b9,
+    type: 3}
+  hitsToCut: 3
