@@ -2349,6 +2349,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a9960df85b2ec2446a1de74ea55b1aa8, type: 2}
+    - target: {fileID: 6773780171195501813, guid: ee287f2b0f0d5d04eb57a084ed62a4b3,
+        type: 3}
+      propertyPath: m_Height
+      value: 2.278313
+      objectReference: {fileID: 0}
+    - target: {fileID: 6773780171195501813, guid: ee287f2b0f0d5d04eb57a084ed62a4b3,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.039002776
+      objectReference: {fileID: 0}
     - target: {fileID: 8904896508429094038, guid: ee287f2b0f0d5d04eb57a084ed62a4b3,
         type: 3}
       propertyPath: m_Name
