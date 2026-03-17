@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -36,6 +37,10 @@ public class ScoreManager : MonoBehaviour
             }
 
             UpdateUI();
+        }
+        if (score >= 300)
+        {
+            SceneManager.LoadScene(2);
         }
     }
 
